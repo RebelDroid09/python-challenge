@@ -1,6 +1,6 @@
 import csv
 
-with open('Resources\budget_data.csv', newline='') as csvfile:
+with open('../Resources/budget_data.csv', newline='') as csvfile:
     lineReader = csv.reader(csvfile, delimiter=',')
 
     lineCount = 0
