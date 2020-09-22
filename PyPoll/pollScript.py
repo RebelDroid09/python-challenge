@@ -27,7 +27,10 @@ with open(csvPath) as csvfile:
                 if not voterCandidate in candidateList:
                     candidateList.append(voterCandidate)
 
-                if len(candidateList) <> len(candidateTotalVotes):
+                candidateLength = len(candidateList)
+                candidateVoteLength = len(candidateTotalVotes)
+
+                if candidateLength > candidateVoteLength:
                     candidateTotalVotes.append(1)
                 else:
                     candidateIndex = candidateList.index(voterCandidate)
