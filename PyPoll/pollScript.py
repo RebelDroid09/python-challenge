@@ -12,6 +12,8 @@ with open(csvPath) as csvfile:
     candidateTotalVotes = []
     candidatePercentageList = []    
     electionWinner = ""
+    winnerIndex = ""
+    winnerTotal = 0
 
     for row in lineReader:
         if lineCount > 0:
@@ -32,6 +34,7 @@ with open(csvPath) as csvfile:
                     candidateTotalVotes[candidateIndex] += 1                
             except ValueError:
                 pass     
+                print("something went wrong in the main election tally.")
        
         lineCount += 1
 
@@ -41,8 +44,19 @@ if voteTotal > 0:
         candidatePercentage = (candidateTotalVotes[candidateIndex] / voteTotal) * 100
         candidatePercentageList.append(candidatePercentage)
 
-# finalText = "Total Months: {months} Total: ${total} Average Change: ${average:.2f} Greatest Increase in Profits: {highestMonth} (${highestAmount}) Greatest Decrease in Profits: {lowestMonth} (${lowestAmount})"
+        if winnerTotal < candidateTotalVotes[candidateIndex]:
+            winnerTotal = candidateTotalVotes[candidateIndex]
+            winner = candidate
 
-# print("Financial Analysis")
-# print("-" * 20)
-# print(finalText.format(months = lineCount, total = runningTotal, average = average, highestMonth = highestMonth, highestAmount = greatestIncrease, lowestMonth = lowestMonth, lowestAmount = greatestDecrease))
+
+print("Election Results")
+print("-" * 20)
+print("Total Votes: {votes}".format(votes = voteTotal))
+print("-" * 20)
+if voteTotal > 0:
+    for candidate in candidateList:
+        candidateIndex = candidateList.index(candidate)
+        print("{Name}: %{percent:.3f} ({voteCount})".format(Name = candidate, percent = candidatePercentageList[candidateIndex], voteCount = candidateTotalVotes[candidateIndex]))
+print("-" * 20)
+print("Winner: {winner}".format(winner = winner))
+print("-" * 20)
