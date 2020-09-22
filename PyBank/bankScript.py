@@ -31,6 +31,7 @@ with open(csvPath) as csvfile:
                     lowestMonth = row[0]
             except ValueError:
                 pass     
+                print("something went wrong in the main financial calculation.")
        
         lineCount += 1
 
