@@ -2,6 +2,7 @@ import csv
 import os
 
 csvPath = os.path.join(".", "Resources", "election_data.csv")
+writePath = os.path.join(".", "Resources", "election_results.txt")
 
 with open(csvPath) as csvfile:
     lineReader = csv.reader(csvfile, delimiter=',')
@@ -11,6 +12,7 @@ with open(csvPath) as csvfile:
     candidateList = []
     candidateTotalVotes = []
     candidatePercentageList = []    
+    textOutputList = []
     electionWinner = ""
     winnerIndex = ""
     winnerTotal = 0
@@ -52,14 +54,20 @@ if voteTotal > 0:
             winner = candidate
 
 
-print("Election Results")
-print("-" * 20)
-print("Total Votes: {votes}".format(votes = voteTotal))
-print("-" * 20)
+textOutputList.append("Election Results")
+textOutputList.append("-" * 20)
+textOutputList.append("Total Votes: {votes}".format(votes = voteTotal))
+textOutputList.append("-" * 20)
 if voteTotal > 0:
     for candidate in candidateList:
         candidateIndex = candidateList.index(candidate)
-        print("{Name}: %{percent:.3f} ({voteCount})".format(Name = candidate, percent = candidatePercentageList[candidateIndex], voteCount = candidateTotalVotes[candidateIndex]))
-print("-" * 20)
-print("Winner: {winner}".format(winner = winner))
-print("-" * 20)
+        textOutputList.append("{Name}: %{percent:.3f} ({voteCount})".format(Name = candidate, percent = candidatePercentageList[candidateIndex], voteCount = candidateTotalVotes[candidateIndex]))
+textOutputList.append("-" * 20)
+textOutputList.append("Winner: {winner}".format(winner = winner))
+textOutputList.append("-" * 20)
+
+with open(writePath, 'w') as textfile:
+    for text in textOutputList:
+        textfile.write(text)
+        print(text)
+    textfile.close()
