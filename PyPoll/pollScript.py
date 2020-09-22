@@ -14,7 +14,6 @@ with open(csvPath) as csvfile:
     candidatePercentageList = []    
     textOutputList = []
     electionWinner = ""
-    winnerIndex = ""
     winnerTotal = 0
 
     for row in lineReader:
