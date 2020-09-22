@@ -2,6 +2,9 @@ import csv
 import os
 
 csvPath = os.path.join(".", "Resources", "budget_data.csv")
+writePath = os.path.join(".", "Resources", "financial_results.txt")
+
+textOutputList = []
 
 with open(csvPath) as csvfile:
     lineReader = csv.reader(csvfile, delimiter=',')
@@ -36,6 +39,12 @@ if lineCount > 0:
 
 finalText = "Total Months: {months} Total: ${total} Average Change: ${average:.2f} Greatest Increase in Profits: {highestMonth} (${highestAmount}) Greatest Decrease in Profits: {lowestMonth} (${lowestAmount})"
 
-print("Financial Analysis")
-print("-" * 20)
-print(finalText.format(months = lineCount, total = runningTotal, average = average, highestMonth = highestMonth, highestAmount = greatestIncrease, lowestMonth = lowestMonth, lowestAmount = greatestDecrease))
+textOutputList.append("Financial Analysis")
+textOutputList.append("-" * 20)
+textOutputList.append(finalText.format(months = lineCount, total = runningTotal, average = average, highestMonth = highestMonth, highestAmount = greatestIncrease, lowestMonth = lowestMonth, lowestAmount = greatestDecrease))
+
+with open(writePath, 'w') as textfile:
+    for text in textOutputList:
+        textfile.write(text)
+        print(text)
+    textfile.close()
